@@ -1,6 +1,7 @@
 local GUI = {
 	-- GUI Survival
 	{type = 'header', text = 'Survival', align = 'center'},
+	{type = 'checkspin', text = 'Ancestral Shift', key = 'S_AS', default_check = true, default_spin = 40},
 	{type = 'checkspin', text = 'Gift of the Naaru', key = 'S_GOTN', default_check = true, default_spin = 40},
 	{type = 'checkspin', text = 'Healthstone', key = 'S_HS', default_check = true, default_spin = 20},
 	{type = 'checkspin', text = 'Ancient Healing Potion', key = 'S_AHP', default_check = false, default_spin = 20},
@@ -96,6 +97,8 @@ local exeOnLoad = function()
 end
 
 local Survival = {
+	-- Ancestral Shift
+	{'Ancestral Shift', 'player.health<=UI(S_AS_spin)&UI(S_AS_check)'},
 	-- Gift of the Naaru usage if enabled in UI.
 	{'Gift of the Naaru', 'player.health<=UI(S_GOTN_spin)&UI(S_GOTN_check)'},
 	-- Healthstone usage if enabled in UI.
@@ -205,7 +208,7 @@ local outCombat = {
 }
 
 NeP.CR:Add(264, {
-	name = '|cff00fff0 [Yumad]|r Shaman - |cff0068ffRestoration|r',
+	name = '|r[|cff00fff0Yumad|r] Shaman - |cff0068ffRestoration|r',
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
