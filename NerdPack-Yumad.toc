@@ -1,0 +1,7 @@
+## Title: |r[|cff00fff0Yumad|r] Combat Routines
+## Notes: Custom Combat Routines for NerdPack
+## Interface: 70100
+## Author: Yumad
+## Dependencies: NerdPack
+
+files.xml
