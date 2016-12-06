@@ -149,7 +149,7 @@ local DPS = {
 	-- Chain Lightning
 	{'Chain Lightning', 'player.area(40).enemies>=2', 'target'},
 	-- Lightning Bolt
-	{'Lightning Bolt'},
+	{'Lightning Bolt', nil, 'target'},
 }
 
 local Tank = {
