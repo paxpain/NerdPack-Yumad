@@ -11,7 +11,7 @@ local GUI = {
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'checkbox', text = 'L-Shift: Healing Rain @ Cursor', key = 'K_HR', default = true},
 	{type = 'checkbox', text = 'L-Control: Lightning Surge Totem @ Cursor', key = 'K_LST', default = true},
-	{type = 'checkbox', text = 'L-Alt: Pause Rotation', key = 'K_P', default = false},
+	{type = 'checkbox', text = 'L-Alt: Earthbind Totem @ Cursor', key = 'K_EBT', default = true},
 	{type = 'ruler'},{type = 'spacer'},
 
 	-- GUI Trinkets
@@ -113,7 +113,7 @@ local Keybinds = {
 	-- Lightning Surge Totem at cursor on Left-Control if enabled in UI.
 	{'/cast [@cursor] !Lightning Surge Totem', 'keybind(lcontrol)&UI(K_LST)'},
 	-- Pause on Left-Alt if enabled in UI.
-	{'%pause', 'keybind(lalt)&UI(K_P)'},
+	{'/cast [@cursor] !Earthbind Totem', 'keybind(lalt)&UI(K_EBT)'},
 }
 
 local Trinkets = {
@@ -202,7 +202,6 @@ local inCombat = {
 }
 
 local outCombat = {
-	{Keybinds},
 	{'Riptide', 'lowest.health<100', 'lowest'},
 	{'%ressdead(Ancestral Spirit)'},
 }
