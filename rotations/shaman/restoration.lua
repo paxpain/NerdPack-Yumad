@@ -203,6 +203,7 @@ local inCombat = {
 
 local outCombat = {
 	{'Riptide', 'lowest.health<100', 'lowest'},
+	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
 	{'%ressdead(Ancestral Spirit)'},
 }
 
