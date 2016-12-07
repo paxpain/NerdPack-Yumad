@@ -1,10 +1,14 @@
 local GUI = {
 	-- GUI Survival
 	{type = 'header', text = 'Survival', align = 'center'},
-	{type = 'checkspin', text = 'Ancestral Shift', key = 'S_AS', default_check = true, default_spin = 40},
-	{type = 'checkspin', text = 'Gift of the Naaru', key = 'S_GOTN', default_check = true, default_spin = 40},
-	{type = 'checkspin', text = 'Healthstone', key = 'S_HS', default_check = true, default_spin = 20},
-	{type = 'checkspin', text = 'Ancient Healing Potion', key = 'S_AHP', default_check = false, default_spin = 20},
+	{type = 'checkbox', text = 'Enable Astral Shift', key = 'S_ASE', default = true},
+	{type = 'spinner', text = 'Astral Shift (Health %)', key = 'S_AS', default = 40},
+	{type = 'checkbox', text = 'Enable Gift of the Naaru', key = 'S_GOTNE', default = true},
+	{type = 'spinner', text = 'Gift of the Naaru (Health %)', key = 'S_GOTN', default_check = true, default_spin = 40},
+	{type = 'checkbox', text = 'Enable Healthstone', key = 'S_HSE', default = true},
+	{type = 'spinner', text = 'Healthstone (Health %)', key = 'S_HS', default_check = true, default_spin = 20},
+	{type = 'checkbox', text = 'Enable Ancient Healing Potion', key = 'S_AHPE', default = true},
+	{type = 'spinner', text = 'Ancient Healing Potion(Health %)', key = 'S_AHP', default_check = false, default_spin = 20},
 	{type = 'ruler'},{type = 'spacer'},
 	
 	-- GUI Keybinds
@@ -16,7 +20,7 @@ local GUI = {
 
 	-- GUI Trinkets
 	{type = 'header', text = 'Trinkets', align = 'center'},
-	{type = 'text', text = 'Automatically trigger on-use trinkets.'},
+	{type = 'text', text = 'Activate on-use trinkets off cooldown.'},
 	{type = 'checkbox', text = 'Enable Top Trinket', key = 'trinket_1', default = false},
 	{type = 'checkbox', text = 'Enable Bottom Trinket', key = 'Trinket_2', default = false},
 	{type = 'ruler'},{type = 'spacer'},
@@ -41,7 +45,7 @@ local GUI = {
 	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'T_HS', default = 75},
 	{type = 'spacer'},
 	{type = 'header', text = 'AoE Tank Healing', align = 'center'},
-	{type = 'text', text = 'Toggle Multitarget on NeP Bar.|r'},
+	{type = 'text', text = 'Toggle Multitarget on NeP Bar.'},
 	{type = 'text', text = '|cffff0000Advanced LUA unlocker required for Healing Rain ontop of tank.|r'},
 	{type = 'checkbox', text = 'Enable Healing Rain', key = 'T_HRE', default = true},
 	{type = 'text', text = 'Active: when 3 or more players within 40yds. drop below 80% health.'},
@@ -55,7 +59,7 @@ local GUI = {
 	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'P_HS', default = 70},
 	{type = 'spacer'},
 	{type = 'header', text = 'AoE Player Healing', align = 'center'},
-	{type = 'text', text = 'Toggle Multitarget on NeP Bar.|r'},
+	{type = 'text', text = 'Toggle Multitarget on NeP Bar.'},
 	{type = 'text', text = '|cffff0000Advanced LUA unlocker required for Healing Rain ontop of player.|r'},
 	{type = 'checkbox', text = 'Enable Healing Rain', key = 'P_HRE', default = true},
 	{type = 'text', text = 'Active: when 3 or more players within 40yds. drop below 80% health.'},
@@ -67,10 +71,11 @@ local GUI = {
 	{type = 'header', text = 'Lowest Healing', align = 'center'},
 	{type = 'spinner', text = 'Force Riptide (Health %)', key = 'L_FRT', default = 85},
 	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'L_HS', default = 70},
+	{type = 'text', text = '|cffff0000Elemental DPS is dependent on HW value. Set value < 100 to cast Elemental DPS.|r'},
 	{type = 'spinner', text = 'Healing Wave (Health %)', key = 'L_HW', default = 100},
 	{type = 'spacer'},
 	{type = 'header', text = 'AoE Lowest Healing', align = 'center'},
-	{type = 'text', text = 'Toggle Multitarget on NeP Bar.|r'},
+	{type = 'text', text = 'Toggle Multitarget on NeP Bar.'},
 	{type = 'text', text = '|cffff0000Advanced LUA unlocker required for Healing Rain ontop of lowest health player.|r'},
 	{type = 'checkbox', text = 'Enable Healing Rain', key = 'L_HRE', default = true},
 	{type = 'text', text = 'Active: when 3 or more players within 40yds. drop below 80% health.'},
@@ -91,20 +96,20 @@ local exeOnLoad = function()
 		-- Elemental DPS in rotation toggle.
 		key = 'xDPS',
 		name = 'Elemental DPS',
-		text = 'Enable/Disable: Elemental DPS in rotation.',
+		text = 'Enable/Disable: Elemental DPS in rotation. Set Healing Wave value to < 100.',
 		icon = 'Interface\\ICONS\\spell_fire_flameshock',
 	})
 end
 
 local Survival = {
-	-- Ancestral Shift
-	{'Ancestral Shift', 'player.health<=UI(S_AS_spin)&UI(S_AS_check)'},
+	-- Astral Shift
+	{'Astral Shift', 'UI(S_ASE)&player.health<=UI(S_AS)'},
 	-- Gift of the Naaru usage if enabled in UI.
-	{'Gift of the Naaru', 'player.health<=UI(S_GOTN_spin)&UI(S_GOTN_check)'},
+	{'Gift of the Naaru', 'UI(S_GOTNE)&player.health<=UI(S_GOTN)'},
 	-- Healthstone usage if enabled in UI.
-	{'#Healthstone', 'player.health<=UI(S_HS_spin)&UI(S_HS_check)'},
+	{'#Healthstone', 'UI(S_HSE)&player.health<=UI(S_HS)'},
 	-- Ancient Healing Potion usage if enabled in UI.
-	{'#Ancient Healing Potion', 'player.health<=UI(S_AHP_spin)&UI(S_AHP_check)'},
+	{'#Ancient Healing Potion', 'UI(S_AHPE)&player.health<=UI(S_AHP)'},
 }
 
 local Keybinds = {
@@ -190,8 +195,8 @@ local Lowest = {
 local inCombat = {
 	--{'!Purify Spirit', 'DispelNone(Purify Spirit).health<=100', 'DispelNone(Purify Spirit)'}, -- Rabbs fix does not work. Waiting for solution.
 	{Keybinds},
-	{Emergency},
 	{Survival},
+	{Emergency},
 	{Totems},
 	{Trinkets},
 	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
