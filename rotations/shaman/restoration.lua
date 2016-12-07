@@ -209,7 +209,7 @@ local inCombat = {
 
 local outCombat = {
 	{'Riptide', 'lowest.health<100', 'lowest'},
-	{Tank, 'tank.exists&tank.health<100'},
+	{Lowest, 'lowest.health<100'},
 	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
 	--{'%ressdead(Ancestral Spirit)'}, -- Confirmed broken by MTS. 
 }
