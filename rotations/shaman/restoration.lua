@@ -188,7 +188,7 @@ local Lowest = {
 }
 
 local inCombat = {
-	--{'!Purify Spirit', 'DispelNone(Purify Spirit).health<=100', 'DispelNone(Purify Spirit)'},
+	--{'!Purify Spirit', 'DispelNone(Purify Spirit).health<=100', 'DispelNone(Purify Spirit)'}, -- Rabbs fix does not work. Waiting for solution.
 	{Keybinds},
 	{Emergency},
 	{Survival},
@@ -204,7 +204,7 @@ local inCombat = {
 local outCombat = {
 	{'Riptide', 'lowest.health<100', 'lowest'},
 	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
-	{'%ressdead(Ancestral Spirit)'},
+	--{'%ressdead(Ancestral Spirit)'}, -- Confirmed broken by MTS. 
 }
 
 NeP.CR:Add(264, {
