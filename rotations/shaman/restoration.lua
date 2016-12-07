@@ -4,11 +4,11 @@ local GUI = {
 	{type = 'checkbox', text = 'Enable Astral Shift', key = 'S_ASE', default = true},
 	{type = 'spinner', text = 'Astral Shift (Health %)', key = 'S_AS', default = 40},
 	{type = 'checkbox', text = 'Enable Gift of the Naaru', key = 'S_GOTNE', default = true},
-	{type = 'spinner', text = 'Gift of the Naaru (Health %)', key = 'S_GOTN', default_check = true, default_spin = 40},
+	{type = 'spinner', text = 'Gift of the Naaru (Health %)', key = 'S_GOTN', default = 40},
 	{type = 'checkbox', text = 'Enable Healthstone', key = 'S_HSE', default = true},
-	{type = 'spinner', text = 'Healthstone (Health %)', key = 'S_HS', default_check = true, default_spin = 20},
+	{type = 'spinner', text = 'Healthstone (Health %)', key = 'S_HS', default = 20},
 	{type = 'checkbox', text = 'Enable Ancient Healing Potion', key = 'S_AHPE', default = true},
-	{type = 'spinner', text = 'Ancient Healing Potion(Health %)', key = 'S_AHP', default_check = false, default_spin = 20},
+	{type = 'spinner', text = 'Ancient Healing Potion(Health %)', key = 'S_AHP', default = 20},
 	{type = 'ruler'},{type = 'spacer'},
 	
 	-- GUI Keybinds
@@ -71,7 +71,9 @@ local GUI = {
 	{type = 'header', text = 'Lowest Healing', align = 'center'},
 	{type = 'spinner', text = 'Force Riptide (Health %)', key = 'L_FRT', default = 85},
 	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'L_HS', default = 70},
-	{type = 'text', text = '|cffff0000Elemental DPS is dependent on HW value. Set value < 100 to cast Elemental DPS.|r'},
+	{type = 'text', text = '|cffff0000Elemental DPS rotation is dependent on the value set for Healing Wave.|r'},
+	{type = 'text', text = '@ 100% = Healing Wave filler spam at all times.'},
+	{type = 'text', text = '@ < 100% = Elemental DPS takes precedence.'},
 	{type = 'spinner', text = 'Healing Wave (Health %)', key = 'L_HW', default = 100},
 	{type = 'spacer'},
 	{type = 'header', text = 'AoE Lowest Healing', align = 'center'},
@@ -193,7 +195,6 @@ local Lowest = {
 }
 
 local inCombat = {
-	--{'!Purify Spirit', 'DispelNone(Purify Spirit).health<=100', 'DispelNone(Purify Spirit)'}, -- Rabbs fix does not work. Waiting for solution.
 	{Keybinds},
 	{Survival},
 	{Emergency},
@@ -208,6 +209,7 @@ local inCombat = {
 
 local outCombat = {
 	{'Riptide', 'lowest.health<100', 'lowest'},
+	{Tank, 'tank.exists&tank.health<100'},
 	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
 	--{'%ressdead(Ancestral Spirit)'}, -- Confirmed broken by MTS. 
 }

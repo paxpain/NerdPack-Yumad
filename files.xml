@@ -2,7 +2,6 @@
 ..\FrameXML\UI.xsd">
 
   <!-- Core Files -->
-  <Script file="fakeunits.lua" />
 
   <!-- Rotations -->
   <Script file="rotations\shaman\restoration.lua" />
