@@ -138,9 +138,9 @@ local Totems = {
 
 local Emergency = {
 	-- Riptide
-	{'!Riptide', 'UI(E_EH)&lowest.health<UI(E_RT)', 'lowest'},
+	{'!Riptide', 'UI(E_EH)&lowest.health<=UI(E_RT)', 'lowest'},
 	-- Healing Surge 
-	{'!Healing Surge', 'UI(E_EH)&lowest.health<UI(E_HS)', 'lowest'},
+	{'!Healing Surge', 'UI(E_EH)&lowest.health<=UI(E_HS)', 'lowest'},
 }
 
 local Interrupts = {
@@ -161,9 +161,9 @@ local DPS = {
 
 local Tank = {
 	-- Riptide 
-	{'Riptide', 'tank.buff(Riptide).duration<5||tank.health<UI(T_FRT)', 'tank'},
+	{'Riptide', 'tank.buff(Riptide).duration<=5||tank.health<=UI(T_FRT)', 'tank'},
 	-- Healing Surge
-	{'Healing Surge', 'tank.health<UI(T_HS)', 'tank'},
+	{'Healing Surge', 'tank.health<=UI(T_HS)', 'tank'},
 	-- AoE Healing Rain
 	{'Healing Rain', 'advanced&UI(T_HRE)&toggle(AoE)&tank.area(10,90).heal>=1', 'tank.ground'},
 	-- AoE Chain Heal
@@ -172,9 +172,9 @@ local Tank = {
 
 local Player = {
 	--Riptide
-	{'Riptide', 'player.buff(Riptide).duration<5||player.health<UI(P_FRT)', 'player'},
+	{'Riptide', 'player.buff(Riptide).duration<=5||player.health<=UI(P_FRT)', 'player'},
 	--Healing Surge
-	{'Healing Surge', 'player.health<UI(P_HS)', 'player'},
+	{'Healing Surge', 'player.health<=UI(P_HS)', 'player'},
 	-- AoE Healing Rain
 	{'Healing Rain', 'advanced&UI(P_HRE)&toggle(AoE)&player.area(10,90).heal>=2', 'player.ground'},
 	-- AoE Chain Heal
@@ -183,11 +183,11 @@ local Player = {
 
 local Lowest = {
 	--Riptide
-	{'Riptide', 'lowest.buff(Riptide).duration<5||lowest.health<UI(L_FRT)', 'lowest'},
+	{'Riptide', 'lowest.buff(Riptide).duration<=5||lowest.health<=UI(L_FRT)', 'lowest'},
 	--Healing Surge
-	{'Healing Surge', 'lowest.health<UI(L_HS)', 'lowest'},
+	{'Healing Surge', 'lowest.health<=UI(L_HS)', 'lowest'},
 	--Healing Wave
-	{'Healing Wave', 'lowest.health<UI(L_HW)', 'lowest'},
+	{'Healing Wave', 'lowest.health<=UI(L_HW)', 'lowest'},
 	-- AoE Healing Rain
 	{'Healing Rain', 'advanced&UI(L_HRE)&toggle(AoE)&lowest.area(10,90).heal>=2', 'lowest.ground'},
 	-- AoE Chain Heal
