@@ -42,7 +42,7 @@ local GUI = {
 	-- GUI Tank Healing
 	{type = 'header', text = 'Tank Healing', align = 'center'},
 	{type = 'spinner', text = 'Force Riptide (Health %)', key = 'T_FRT', default = 90},
-	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'T_HS', default = 75},
+	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'T_HS', default = 80},
 	{type = 'spacer'},
 	{type = 'header', text = 'AoE Tank Healing', align = 'center'},
 	{type = 'text', text = 'Toggle Multitarget on NeP Bar.'},
@@ -56,7 +56,7 @@ local GUI = {
 	-- GUI Player Healing
 	{type = 'header', text = 'Player Healing', align = 'center'},
 	{type = 'spinner', text = 'Force Riptide (Health %)', key = 'P_FRT', default = 85},
-	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'P_HS', default = 70},
+	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'P_HS', default = 75},
 	{type = 'spacer'},
 	{type = 'header', text = 'AoE Player Healing', align = 'center'},
 	{type = 'text', text = 'Toggle Multitarget on NeP Bar.'},
@@ -69,7 +69,7 @@ local GUI = {
 
 	-- GUI Lowest Healing
 	{type = 'header', text = 'Lowest Healing', align = 'center'},
-	{type = 'spinner', text = 'Force Riptide (Health %)', key = 'L_FRT', default = 85},
+	{type = 'spinner', text = 'Force Riptide (Health %)', key = 'L_FRT', default = 80},
 	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'L_HS', default = 70},
 	{type = 'text', text = '|cffff0000Elemental DPS rotation is dependent on the value set for Healing Wave.|r'},
 	{type = 'text', text = '@ 100% = Healing Wave filler spam at all times.'},
@@ -116,11 +116,11 @@ local Survival = {
 
 local Keybinds = {
 	-- Healing Rain at cursor on Left-Shift if enabled in UI.
-	{'/cast [@cursor] !Healing Rain', 'keybind(lshift)&UI(K_HR)'},
+	{'!Healing Rain', 'keybind(lshift)&UI(K_HR)', 'cursor.ground' },
 	-- Lightning Surge Totem at cursor on Left-Control if enabled in UI.
-	{'/cast [@cursor] !Lightning Surge Totem', 'keybind(lcontrol)&UI(K_LST)'},
+	{'!Lightning Surge Totem', 'keybind(lcontrol)&UI(K_LST)', 'cursor.ground' },
 	-- Pause on Left-Alt if enabled in UI.
-	{'/cast [@cursor] !Earthbind Totem', 'keybind(lalt)&UI(K_EBT)'},
+	{'!Earthbind Totem', 'keybind(lalt)&UI(K_EBT)', 'cursor.ground' },
 }
 
 local Trinkets = {
@@ -165,9 +165,9 @@ local Tank = {
 	-- Healing Surge
 	{'Healing Surge', 'tank.health<UI(T_HS)', 'tank'},
 	-- AoE Healing Rain
-	{'Healing Rain', 'advanced&UI(T_HRE)&toggle(AoE)&tank.area(40).friendly>=3&player.area(40,80).heal>=3', 'tank.ground'},
+	{'Healing Rain', 'advanced&UI(T_HRE)&toggle(AoE)&tank.area(10,90).heal>=1', 'tank.ground'},
 	-- AoE Chain Heal
-	{'Chain Heal', 'UI(T_CHE)&toggle(AoE)&tank.area(40).friendly>=3&player.area(40,80).heal>=3', 'tank'},
+	{'Chain Heal', 'UI(T_CHE)&toggle(AoE)&tank.area(40,80).heal>=1', 'tank'},
 }
 
 local Player = {
@@ -176,9 +176,9 @@ local Player = {
 	--Healing Surge
 	{'Healing Surge', 'player.health<UI(P_HS)', 'player'},
 	-- AoE Healing Rain
-	{'Healing Rain', 'advanced&UI(P_HRE)&toggle(AoE)&player.area(40).friendly>=3&player.area(40,80).heal>=3', 'player.ground'},
+	{'Healing Rain', 'advanced&UI(P_HRE)&toggle(AoE)&player.area(10,90).heal>=2', 'player.ground'},
 	-- AoE Chain Heal
-	{'Chain Heal', 'UI(P_CHE)&toggle(AoE)&player.area(40).friendly>=3&player.area(40,80).heal>=3', 'player'},
+	{'Chain Heal', 'UI(P_CHE)&toggle(AoE)&player.area(40,80).heal>=2', 'player'},
 }
 
 local Lowest = {
@@ -189,9 +189,9 @@ local Lowest = {
 	--Healing Wave
 	{'Healing Wave', 'lowest.health<UI(L_HW)', 'lowest'},
 	-- AoE Healing Rain
-	{'Healing Rain', 'advanced&UI(L_HRE)&toggle(AoE)&lowest.area(40).friendly>=3&player.area(40,80).heal>=3', 'lowest.ground'},
+	{'Healing Rain', 'advanced&UI(L_HRE)&toggle(AoE)&lowest.area(10,90).heal>=2', 'lowest.ground'},
 	-- AoE Chain Heal
-	{'Chain Heal', 'UI(L_CHE)&toggle(AoE)&lowest.area(40).friendly>=3&player.area(40,80).heal>=3', 'lowest'},
+	{'Chain Heal', 'UI(L_CHE)&toggle(AoE)&lowest.area(40,80).heal>=2', 'lowest'},
 }
 
 local inCombat = {
