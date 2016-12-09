@@ -133,7 +133,7 @@ local Trinkets = {
 local Totems = {
 	-- Healing Stream Totem. Range: 40yd. Health: 90%. Players: 3 or more.
 	-- NOTE: Should eventually change this to cast on cooldown.
-	{'!Healing Stream Totem', 'UI(To_HSTE)&player.area(40,90).heal>=3'}
+	{'Healing Stream Totem', 'UI(To_HSTE)&player.area(40,90).heal>=3'}
 }
 
 local Emergency = {
@@ -162,28 +162,33 @@ local DPS = {
 local Tank = {
 	-- Riptide 
 	{'Riptide', 'tank.buff(Riptide).duration<=5||tank.health<=UI(T_FRT)', 'tank'},
+	{{ -- Spiritwalker's Grace
 	-- Healing Surge
 	{'Healing Surge', 'tank.health<=UI(T_HS)', 'tank'},
 	-- AoE Healing Rain
 	{'Healing Rain', 'advanced&UI(T_HRE)&toggle(AoE)&tank.area(10,90).heal>=1', 'tank.ground'},
 	-- AoE Chain Heal
 	{'Chain Heal', 'UI(T_CHE)&toggle(AoE)&tank.area(40,80).heal>=1', 'tank'},
+	}, {'!player.moving||player.buff(Spiritwalker\'s Grace)&player.moving'}},
 }
 
 local Player = {
 	--Riptide
 	{'Riptide', 'player.buff(Riptide).duration<=5||player.health<=UI(P_FRT)', 'player'},
+	{{ -- Spiritwalker's Grace
 	--Healing Surge
 	{'Healing Surge', 'player.health<=UI(P_HS)', 'player'},
 	-- AoE Healing Rain
 	{'Healing Rain', 'advanced&UI(P_HRE)&toggle(AoE)&player.area(10,90).heal>=2', 'player.ground'},
 	-- AoE Chain Heal
 	{'Chain Heal', 'UI(P_CHE)&toggle(AoE)&player.area(40,80).heal>=2', 'player'},
+	}, {'!player.moving||player.buff(Spiritwalker\'s Grace)&player.moving'}},
 }
 
 local Lowest = {
 	--Riptide
 	{'Riptide', 'lowest.buff(Riptide).duration<=5||lowest.health<=UI(L_FRT)', 'lowest'},
+	{{ -- Spiritwalker's Grace
 	--Healing Surge
 	{'Healing Surge', 'lowest.health<=UI(L_HS)', 'lowest'},
 	--Healing Wave
@@ -192,6 +197,7 @@ local Lowest = {
 	{'Healing Rain', 'advanced&UI(L_HRE)&toggle(AoE)&lowest.area(10,90).heal>=2', 'lowest.ground'},
 	-- AoE Chain Heal
 	{'Chain Heal', 'UI(L_CHE)&toggle(AoE)&lowest.area(40,80).heal>=2', 'lowest'},
+	}, {'!player.moving||player.buff(Spiritwalker\'s Grace)&player.moving'}},
 }
 
 local inCombat = {
@@ -200,18 +206,17 @@ local inCombat = {
 	{Emergency},
 	{Totems},
 	{Trinkets},
-	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
 	{Tank, 'tank.exists&tank.health<100'},
+	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
 	{Player, 'player.health<100'},
 	{Lowest, 'lowest.health<100'},
 	{DPS, 'toggle(xDPS)&target.range<40&target.infront'}
 }
 
 local outCombat = {
+	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
 	{'Riptide', 'lowest.health<100', 'lowest'},
 	{Lowest, 'lowest.health<100'},
-	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
-	--{'%ressdead(Ancestral Spirit)'}, -- Confirmed broken by MTS. 
 }
 
 NeP.CR:Add(264, {
