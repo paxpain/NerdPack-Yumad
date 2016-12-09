@@ -2,7 +2,7 @@ local GUI = {
 	-- GUI Survival
 	{type = 'header', text = 'Survival', align = 'center'},
 	{type = 'checkbox', text = 'Enable Astral Shift', key = 'S_ASE', default = true},
-	{type = 'spinner', text = 'Astral Shift (Health %)', key = 'S_AS', default = 40},
+	{type = 'spinner', text = 'Astral Shift (Health %)', key = 'S_AS', default = 45},
 	{type = 'checkbox', text = 'Enable Gift of the Naaru', key = 'S_GOTNE', default = true},
 	{type = 'spinner', text = 'Gift of the Naaru (Health %)', key = 'S_GOTN', default = 40},
 	{type = 'checkbox', text = 'Enable Healthstone', key = 'S_HSE', default = true},
@@ -20,7 +20,7 @@ local GUI = {
 
 	-- GUI Trinkets
 	{type = 'header', text = 'Trinkets', align = 'center'},
-	{type = 'text', text = 'Activate on-use trinkets off cooldown.'},
+	{type = 'text', text = 'Activate on-use trinkets on cooldown.'},
 	{type = 'checkbox', text = 'Enable Top Trinket', key = 'trinket_1', default = false},
 	{type = 'checkbox', text = 'Enable Bottom Trinket', key = 'Trinket_2', default = false},
 	{type = 'ruler'},{type = 'spacer'},
@@ -28,7 +28,7 @@ local GUI = {
 	-- GUI Healing Stream Totem
 	{type = 'header', text = 'Healing Stream Totem', align = 'center'},
 	{type = 'checkbox', text = 'Enable Healing Stream Totem', key = 'To_HSTE', default = true},
-	{type = 'text', text = 'Deployed when 3 or more players within 40yds. drop below 90% health.'},
+	{type = 'text', text = 'Deploy totem on cooldown.'},
 	{type = 'ruler'},{type = 'spacer'},
 
 	-- GUI Emergency Healing
@@ -131,9 +131,8 @@ local Trinkets = {
 }
 
 local Totems = {
-	-- Healing Stream Totem. Range: 40yd. Health: 90%. Players: 3 or more.
-	-- NOTE: Should eventually change this to cast on cooldown.
-	{'Healing Stream Totem', 'UI(To_HSTE)&player.area(40,90).heal>=3'}
+	{'Healing Stream Totem', 'UI(To_HSTE)'}
+	--{'Healing Stream Totem', 'UI(To_HSTE)&player.area(40,90).heal>=3'}
 }
 
 local Emergency = {
