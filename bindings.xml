@@ -1,0 +1,8 @@
+<Bindings>
+	<Binding name="Purify Spirit" header="_YUMAD" category="NerdPack-Yumad">
+		NeP.Interface:toggleToggle('yuPS')
+	</Binding>
+	<Binding name="Elemental DPS" header="_YUMAD" category="NerdPack-Yumad">
+		NeP.Interface:toggleToggle('yuDPS')
+	</Binding>
+</Bindings>

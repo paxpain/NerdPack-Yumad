@@ -95,8 +95,16 @@ local exeOnLoad = function()
 	print('|cffff0000 Configuration: |rRight-click the MasterToggle and go to Combat Routines Settings|r')
 
 	NeP.Interface:AddToggle({
-		-- Elemental DPS in rotation toggle.
-		key = 'xDPS',
+		-- Purify Spirit
+		key = 'yuPS',
+		name = 'Purify Spirit',
+		text = 'Enable/Disable: Automatic removal of a curse or magic effect.',
+		icon = 'Interface\\ICONS\\ability_shaman_cleansespirit',
+	})
+	
+	NeP.Interface:AddToggle({
+		-- Elemental DPS
+		key = 'yuDPS',
 		name = 'Elemental DPS',
 		text = 'Enable/Disable: Elemental DPS in rotation. Set Healing Wave value to < 100.',
 		icon = 'Interface\\ICONS\\spell_fire_flameshock',
@@ -116,11 +124,11 @@ local Survival = {
 
 local Keybinds = {
 	-- Healing Rain at cursor on Left-Shift if enabled in UI.
-	{'!Healing Rain', 'keybind(lshift)&UI(K_HR)', 'cursor.ground' },
+	{'!Healing Rain', 'keybind(lshift)&UI(K_HR)', 'cursor.ground'},
 	-- Lightning Surge Totem at cursor on Left-Control if enabled in UI.
-	{'!Lightning Surge Totem', 'keybind(lcontrol)&UI(K_LST)', 'cursor.ground' },
+	{'!Lightning Surge Totem', 'keybind(lcontrol)&UI(K_LST)', 'cursor.ground'},
 	-- Pause on Left-Alt if enabled in UI.
-	{'!Earthbind Totem', 'keybind(lalt)&UI(K_EBT)', 'cursor.ground' },
+	{'!Earthbind Totem', 'keybind(lalt)&UI(K_EBT)', 'cursor.ground'},
 }
 
 local Trinkets = {
@@ -131,7 +139,7 @@ local Trinkets = {
 }
 
 local Totems = {
-	{'Healing Stream Totem', 'UI(To_HSTE)'}
+	{'Healing Stream Totem', 'UI(To_HSTE)'},
 	--{'Healing Stream Totem', 'UI(To_HSTE)&player.area(40,90).heal>=3'}
 }
 
@@ -145,6 +153,11 @@ local Emergency = {
 local Interrupts = {
 	-- Wind Shear selected target.
 	{'!Wind Shear'},
+}
+
+local Dispel ={
+	-- Purify Spirit
+	{'%dispelall'},
 }
 
 local DPS = {
@@ -162,12 +175,12 @@ local Tank = {
 	-- Riptide 
 	{'Riptide', 'tank.buff(Riptide).duration<=5||tank.health<=UI(T_FRT)', 'tank'},
 	{{ -- Spiritwalker's Grace
-	-- Healing Surge
-	{'Healing Surge', 'tank.health<=UI(T_HS)', 'tank'},
-	-- AoE Healing Rain
-	{'Healing Rain', 'advanced&UI(T_HRE)&toggle(AoE)&tank.area(10,90).heal>=1', 'tank.ground'},
-	-- AoE Chain Heal
-	{'Chain Heal', 'UI(T_CHE)&toggle(AoE)&tank.area(40,80).heal>=1', 'tank'},
+		-- Healing Surge
+		{'Healing Surge', 'tank.health<=UI(T_HS)', 'tank'},
+		-- AoE Healing Rain
+		{'Healing Rain', 'advanced&UI(T_HRE)&toggle(AoE)&tank.area(10,90).heal>=1', 'tank.ground'},
+		-- AoE Chain Heal
+		{'Chain Heal', 'UI(T_CHE)&toggle(AoE)&tank.area(40,80).heal>=1', 'tank'},
 	}, {'!player.moving||player.buff(Spiritwalker\'s Grace)&player.moving'}},
 }
 
@@ -175,12 +188,12 @@ local Player = {
 	--Riptide
 	{'Riptide', 'player.buff(Riptide).duration<=5||player.health<=UI(P_FRT)', 'player'},
 	{{ -- Spiritwalker's Grace
-	--Healing Surge
-	{'Healing Surge', 'player.health<=UI(P_HS)', 'player'},
-	-- AoE Healing Rain
-	{'Healing Rain', 'advanced&UI(P_HRE)&toggle(AoE)&player.area(10,90).heal>=2', 'player.ground'},
-	-- AoE Chain Heal
-	{'Chain Heal', 'UI(P_CHE)&toggle(AoE)&player.area(40,80).heal>=2', 'player'},
+		--Healing Surge
+		{'Healing Surge', 'player.health<=UI(P_HS)', 'player'},
+		-- AoE Healing Rain
+		{'Healing Rain', 'advanced&UI(P_HRE)&toggle(AoE)&player.area(10,90).heal>=2', 'player.ground'},
+		-- AoE Chain Heal
+		{'Chain Heal', 'UI(P_CHE)&toggle(AoE)&player.area(40,80).heal>=2', 'player'},
 	}, {'!player.moving||player.buff(Spiritwalker\'s Grace)&player.moving'}},
 }
 
@@ -188,34 +201,36 @@ local Lowest = {
 	--Riptide
 	{'Riptide', 'lowest.buff(Riptide).duration<=5||lowest.health<=UI(L_FRT)', 'lowest'},
 	{{ -- Spiritwalker's Grace
-	--Healing Surge
-	{'Healing Surge', 'lowest.health<=UI(L_HS)', 'lowest'},
-	--Healing Wave
-	{'Healing Wave', 'lowest.health<=UI(L_HW)', 'lowest'},
-	-- AoE Healing Rain
-	{'Healing Rain', 'advanced&UI(L_HRE)&toggle(AoE)&lowest.area(10,90).heal>=2', 'lowest.ground'},
-	-- AoE Chain Heal
-	{'Chain Heal', 'UI(L_CHE)&toggle(AoE)&lowest.area(40,80).heal>=2', 'lowest'},
+		--Healing Surge
+		{'Healing Surge', 'lowest.health<=UI(L_HS)', 'lowest'},
+		--Healing Wave
+		{'Healing Wave', 'lowest.health<=UI(L_HW)', 'lowest'},
+		-- AoE Healing Rain
+		{'Healing Rain', 'advanced&UI(L_HRE)&toggle(AoE)&lowest.area(10,90).heal>=2', 'lowest.ground'},
+		-- AoE Chain Heal
+		{'Chain Heal', 'UI(L_CHE)&toggle(AoE)&lowest.area(40,80).heal>=2', 'lowest'},
 	}, {'!player.moving||player.buff(Spiritwalker\'s Grace)&player.moving'}},
 }
 
 local inCombat = {
 	{Keybinds},
+	{Dispel, 'toggle(yuPS)&spell(Purify Spirit).cooldown=0'},
 	{Survival},
 	{Emergency},
 	{Totems},
 	{Trinkets},
 	{Tank, 'tank.exists&tank.health<100'},
-	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
-	{Player, 'player.health<100'},
 	{Lowest, 'lowest.health<100'},
-	{DPS, 'toggle(xDPS)&target.range<40&target.infront'}
+	{Player, 'player.health<100'},
+	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
+	{DPS, 'toggle(yuDPS)&target.range<40&target.infront'},
 }
 
 local outCombat = {
-	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
+	{Dispel, 'toggle(yuPS)&spell(Purify Spirit).cooldown=0'},
 	{'Riptide', 'lowest.health<100', 'lowest'},
 	{Lowest, 'lowest.health<100'},
+	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
 }
 
 NeP.CR:Add(264, {
