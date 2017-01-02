@@ -103,20 +103,20 @@ local Cooldowns = {
 
 local AoE = {
 	{'Totem Mastery', 'totem(Totem Mastery).duration<1'},
-	{'Stormkeeper'},
 	{'Liquid Magma Totem', 'talent(6,1)', 'cursor.ground'},
 	{{{'Flame Shock', 'target.debuff(Flame Shock).duration<gcd'},
 	{'Lava Burst', 'player.buff(Lava Surge)'},}, {'!moving||moving'}},
 	{'Earthquake', 'player.maelstrom>=50', 'cursor.ground'},
+	{'Stormkeeper'},
 	{'Chain Lightning', nil, 'target'},
 }
 
 local ST = {
 	{'Totem Mastery', 'totem(Totem Mastery).duration<1'},
-	{'Stormkeeper'},
 	{'Liquid Magma Totem', 'talent(6,1)', 'cursor.ground'},
 	{{{'Flame Shock', '!target.debuff(Flame Shock)||target.debuff(Flame Shock).duration<gcd||player.maelstrom>=20&player.buff(Elemental Focus)&target.debuff(Flame Shock).duration<9'},
 	{'Earth Shock', 'player.maelstrom>=92||player.maelstrom>=86&!player.buff(Lava Surge)'},
+	{'Stormkeeper'},
 	{'Lava Burst', 'target.debuff(Flame Shock).duration>spell(Lava Burst).casttime&spell(Lava Burst).cooldown=0||player.buff(Lava Surge)||player.buff(Lava Surge)&player.buff(Stormkeeper).duration>spell(Lava Burst).casttime+gcd'},}, {'!moving||moving'}},
 	{'Chain Lightning', 'player.area(40).enemies>1'},
 	{'Lightning Bolt', nil, 'target'},
