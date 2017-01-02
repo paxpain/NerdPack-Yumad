@@ -2,5 +2,6 @@
 ..\FrameXML\UI.xsd">
 
 <Script file="rotations\shaman\restoration.lua"/>
+<Script file="rotations\shaman\elemental.lua"/>
 
 </Ui>
