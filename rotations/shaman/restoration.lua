@@ -15,7 +15,7 @@ local GUI = {
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'checkbox', text = 'L-Shift: Healing Rain @ Cursor', key = 'K_HR', default = true},
 	{type = 'checkbox', text = 'L-Control: Lightning Surge Totem @ Cursor', key = 'K_LST', default = true},
-	{type = 'checkbox', text = 'L-Alt: Earthbind Totem @ Cursor', key = 'K_EBT', default = true},
+	{type = 'checkbox', text = 'L-Alt: Cloudburst Totem @ Cursor', key = 'K_CT', default = true},
 	{type = 'ruler'},{type = 'spacer'},
 
 	-- GUI Trinkets
@@ -28,6 +28,13 @@ local GUI = {
 	-- GUI Healing Stream Totem
 	{type = 'header', text = 'Healing Stream Totem', align = 'center'},
 	{type = 'checkbox', text = 'Enable Healing Stream Totem', key = 'To_HSTE', default = true},
+	{type = 'text', text = 'Deploy totem on cooldown.'},
+	{type = 'ruler'},{type = 'spacer'},
+
+	-- GUI Earthen Shield Totem
+	{type = 'header', text = 'Earthen Shield Totem', align = 'center'},
+	{type = 'text', text = '|cffff0000Advanced LUA unlocker required to deploy Earthen Shield Totem on top of tank.|r'},
+	{type = 'checkbox', text = 'Enable Earthen Shield Totem', key = 'To_ESTE', default = true},
 	{type = 'text', text = 'Deploy totem on cooldown.'},
 	{type = 'ruler'},{type = 'spacer'},
 
@@ -90,7 +97,7 @@ local exeOnLoad = function()
 	-- Rotation loaded message.
 	print('|cff0068ff ----------------------------------------------------------------------|r')
 	print('|cff0068ff --- |rShaman: |cff0068ffRESTORATION|r')
-	print('|cff0068ff --- |rRecommended Talents: 1/3 - 2/2 - 3/1 - 4/2 - 5/? - 6/? - 7/?')
+	print('|cff0068ff --- |rRecommended Talents: 1/3 - 2/2 - 3/1 - 4/2 - 5/3 - 6/2 - 7/?')
 	print('|cff0068ff ----------------------------------------------------------------------|r')
 	print('|cffff0000 Configuration: |rRight-click the MasterToggle and go to Combat Routines Settings|r')
 
@@ -127,8 +134,8 @@ local Keybinds = {
 	{'!Healing Rain', 'keybind(lshift)&UI(K_HR)', 'cursor.ground'},
 	-- Lightning Surge Totem at cursor on Left-Control if enabled in UI.
 	{'!Lightning Surge Totem', 'keybind(lcontrol)&UI(K_LST)', 'cursor.ground'},
-	-- Pause on Left-Alt if enabled in UI.
-	{'!Earthbind Totem', 'keybind(lalt)&UI(K_EBT)', 'cursor.ground'},
+	-- Cloudburst Totem at cursor on Left-Alt if enabled in UI.
+	{'!Cloudburst Totem', 'keybind(lalt)&UI(K_CT)', 'cursor.ground'},
 }
 
 local Trinkets = {
@@ -139,8 +146,10 @@ local Trinkets = {
 }
 
 local Totems = {
+	-- Healing Stream Totem
 	{'Healing Stream Totem', 'UI(To_HSTE)'},
-	--{'Healing Stream Totem', 'UI(To_HSTE)&player.area(40,90).heal>=3'}
+	-- Earthen Shield Totem
+	{'Earthen Shield Totem', 'advanced&UI(To_ESTE)', 'tank.ground'},
 }
 
 local Emergency = {
@@ -193,7 +202,7 @@ local Player = {
 		-- AoE Healing Rain
 		{'Healing Rain', 'advanced&UI(P_HRE)&toggle(AoE)&player.area(10,90).heal>=2', 'player.ground'},
 		-- AoE Chain Heal
-		{'Chain Heal', 'UI(P_CHE)&toggle(AoE)&player.area(40,80).heal>=2', 'player'},
+		{'Chain Heal', 'UI(P_CHE)&toggle(AoE)&player.area(40,80).heal>=1', 'player'},
 	}, {'!player.moving||player.buff(Spiritwalker\'s Grace)&player.moving'}},
 }
 
@@ -208,7 +217,7 @@ local Lowest = {
 		-- AoE Healing Rain
 		{'Healing Rain', 'advanced&UI(L_HRE)&toggle(AoE)&lowest.area(10,90).heal>=2', 'lowest.ground'},
 		-- AoE Chain Heal
-		{'Chain Heal', 'UI(L_CHE)&toggle(AoE)&lowest.area(40,80).heal>=2', 'lowest'},
+		{'Chain Heal', 'UI(L_CHE)&toggle(AoE)&lowest.area(40,80).heal>=1', 'lowest'},
 	}, {'!player.moving||player.buff(Spiritwalker\'s Grace)&player.moving'}},
 }
 
