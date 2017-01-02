@@ -128,6 +128,7 @@ local inCombat = {
 	{Survival},
 	{Trinkets},
 	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
+	{Cooldowns, 'toggle(cooldowns)'},
 	{AoE, 'toggle(aoe)&player.area(40).enemies>2'},
 	{ST, 'target.range<40&target.infront'},
 }
