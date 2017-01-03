@@ -91,6 +91,7 @@ local Dispel ={
 }
 
 -- Lighting Rod Rotation ##############################################################
+-- http://www.stormearthandlava.com/elemental-shaman-hub/lightning-rod-build-guide/
 local LRCooldowns = {
 	{'Totem Mastery', 'totem(Totem Mastery).duration<1'},
 	{'Stormkeeper'},
@@ -102,8 +103,9 @@ local LRCooldowns = {
 local LRAoE = {
 	{'Totem Mastery', 'totem(Totem Mastery).duration<1'},
 	{'Liquid Magma Totem', 'talent(6,1)', 'cursor.ground'},
-	{{{'Flame Shock', 'target.debuff(Flame Shock).duration<gcd'},
-	{'Lava Burst', 'player.buff(Lava Surge)'},}, {'!moving||moving'}},
+	{{{'Flame Shock', '!target.debuff(Flame Shock)'},
+	{'Lava Burst', 'player.buff(Lava Surge)'},
+	}, {'!moving||moving'}},
 	{'Earthquake', 'player.maelstrom>=50', 'cursor.ground'},
 	{'Stormkeeper'},
 	{'Chain Lightning', nil, 'target'},
@@ -114,13 +116,15 @@ local LRST = {
 	{'Liquid Magma Totem', 'talent(6,1)', 'cursor.ground'},
 	{{{'Flame Shock', '!target.debuff(Flame Shock)||player.maelstrom>=20&player.buff(Elemental Focus)&target.debuff(Flame Shock).duration<9'},
 	{'Earth Shock', 'player.maelstrom>=92||player.maelstrom>=86&!player.buff(Lava Surge)'},
-	{'Lava Burst', 'target.debuff(Flame Shock).duration>spell(Lava Burst).casttime&spell(Lava Burst).cooldown=0||player.buff(Lava Surge)||player.buff(Lava Surge)&player.buff(Stormkeeper).duration>spell(Lava Burst).casttime+gcd'},}, {'!moving||moving'}},
+	{'Lava Burst', 'target.debuff(Flame Shock).duration>spell(Lava Burst).casttime||player.buff(Lava Surge)||player.buff(Lava Surge)&player.buff(Stormkeeper).duration>spell(Lava Burst).casttime+gcd'},
+	}, {'!moving||moving'}},
 	{'Stormkeeper'},
 	{'Chain Lightning', 'player.area(40).enemies>1'},
 	{'Lightning Bolt', nil, 'target'},
 }
 
 -- Icefury Rotation ###################################################################
+-- http://www.stormearthandlava.com/elemental-shaman-hub/icefury-build-guide/
 local IFCooldowns = {
 	{'Stormkeeper'},
 	{'Fire Elemental', '!talent(6,2)'},
@@ -136,14 +140,15 @@ local IFST = {
 	{'Earth Shock', 'player.maelstrom>=92'},
 	{'Icefury', 'player.maelstrom<=76'},
 	{'Frost Shock', 'lastcast(Icefury)&spell(Frost Shock).charges=4||player.maelstrom>20'},
-	{'!Frost Shock', 'player.buff(Icefury).count=1&player.buff(Icefury).duration<=2+gcd'},
-	{'Lava Burst', 'target.debuff(Flame Shock).duration>spell(Lava Burst).casttime&{player.buff(Lava Surge)||player.maelstrom<=88&spell(Lava Burst).charges<=2}'},
+	{'!Frost Shock', 'player.maelstrom<20&player.buff(Icefury).count<=2&player.buff(Icefury).duration<=2+gcd'},
+	{'Lava Burst', 'target.debuff(Flame Shock).duration>spell(Lava Burst).casttime||player.buff(Lava Surge)||player.maelstrom<=88&spell(Lava Burst).charges<=2'},
 	}, {'!moving||moving'}},
 	{'Stormkeeper'},
 	{'Lightning Bolt', nil, 'target'},
 }
 
 -- Ascendance Rotation ################################################################
+-- http://www.stormearthandlava.com/elemental-shaman-hub/ascendance-build-guide/
 local ASCooldowns = {
 }
 
