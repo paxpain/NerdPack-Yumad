@@ -29,17 +29,14 @@ local GUI = {
 	{type = 'checkbox', text = 'Enable Bottom Trinket', key = 'Trinket_2', default = false},
 	{type = 'ruler'},{type = 'spacer'},
 
-	-- GUI Player Healing
-	{type = 'header', text = 'Player Healing', align = 'center'},
-	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'P_HS', default = 30},
-	{type = 'ruler'},{type = 'spacer'},
 }
 
 local exeOnLoad = function()
 	-- Rotation loaded message.
 	print('|cff0068ff ----------------------------------------------------------------------|r')
 	print('|cff0068ff --- |rShaman: |cff0068ffELEMENTAL|r')
-	print('|cff0068ff --- |rLightning Rod Talents: 1/3 - 2/1 - 3/1 - 4/2 - 5/2 - 6/1 - 7/2')
+	print('|cff0068ff --- |rLightning Rod (Mythic+) Talents: 1/3 - 2/1 - 3/1 - 4/2 - 5/2 - 6/1 - 7/2')
+	print('|cff0068ff --- |rIcefury Talents: 1/2 - 2/1 - 3/1 - 4/2 - 5/3 - 6/3 - 7/3')
 	print('|cff0068ff ----------------------------------------------------------------------|r')
 	print('|cffff0000 Configuration: |rRight-click the MasterToggle and go to Combat Routines Settings|r')
 
@@ -93,7 +90,8 @@ local Dispel ={
 	{'%dispelall'},
 }
 
-local Cooldowns = {
+-- Lighting Rod Rotation ##############################################################
+local LRCooldowns = {
 	{'Totem Mastery', 'totem(Totem Mastery).duration<1'},
 	{'Stormkeeper'},
 	{'Fire Elemental', '!talent(6,2)'},
@@ -101,7 +99,7 @@ local Cooldowns = {
 	{'Blood Fury', 'player.buff(Elemental Mastery)'},
 }
 
-local AoE = {
+local LRAoE = {
 	{'Totem Mastery', 'totem(Totem Mastery).duration<1'},
 	{'Liquid Magma Totem', 'talent(6,1)', 'cursor.ground'},
 	{{{'Flame Shock', 'target.debuff(Flame Shock).duration<gcd'},
@@ -111,10 +109,10 @@ local AoE = {
 	{'Chain Lightning', nil, 'target'},
 }
 
-local ST = {
+local LRST = {
 	{'Totem Mastery', 'totem(Totem Mastery).duration<1'},
 	{'Liquid Magma Totem', 'talent(6,1)', 'cursor.ground'},
-	{{{'Flame Shock', '!target.debuff(Flame Shock)||target.debuff(Flame Shock).duration<gcd||player.maelstrom>=20&player.buff(Elemental Focus)&target.debuff(Flame Shock).duration<9'},
+	{{{'Flame Shock', '!target.debuff(Flame Shock)||player.maelstrom>=20&player.buff(Elemental Focus)&target.debuff(Flame Shock).duration<9'},
 	{'Earth Shock', 'player.maelstrom>=92||player.maelstrom>=86&!player.buff(Lava Surge)'},
 	{'Lava Burst', 'target.debuff(Flame Shock).duration>spell(Lava Burst).casttime&spell(Lava Burst).cooldown=0||player.buff(Lava Surge)||player.buff(Lava Surge)&player.buff(Stormkeeper).duration>spell(Lava Burst).casttime+gcd'},}, {'!moving||moving'}},
 	{'Stormkeeper'},
@@ -122,15 +120,51 @@ local ST = {
 	{'Lightning Bolt', nil, 'target'},
 }
 
+-- Icefury Rotation ###################################################################
+local IFCooldowns = {
+	{'Stormkeeper'},
+	{'Fire Elemental', '!talent(6,2)'},
+	{'Blood Fury', 'lastcast(Fire Elemental)'},
+}
+
+local IFAoE = {
+}
+
+local IFST = {
+	{{{'Flame Shock', '!target.debuff(Flame Shock)||player.maelstrom>=20&player.buff(Elemental Focus)&target.debuff(Flame Shock).duration<9'},
+	{'Elemental Blast', nil, 'target'},
+	{'Earth Shock', 'player.maelstrom>=92'},
+	{'Icefury', 'player.maelstrom<=76'},
+	{'Frost Shock', 'lastcast(Icefury)&spell(Frost Shock).charges=4||player.maelstrom>20'},
+	{'!Frost Shock', 'player.buff(Icefury).count=1&player.buff(Icefury).duration<=2+gcd'},
+	{'Lava Burst', 'target.debuff(Flame Shock).duration>spell(Lava Burst).casttime&{player.buff(Lava Surge)||player.maelstrom<=88&spell(Lava Burst).charges<=2}'},
+	}, {'!moving||moving'}},
+	{'Stormkeeper'},
+	{'Lightning Bolt', nil, 'target'},
+}
+
+-- Ascendance Rotation ################################################################
+local ASCooldowns = {
+}
+
+local ASAoE = {
+}
+
+local ASST = {
+}
+
 local inCombat = {
 	{Keybinds},
 	{Dispel, 'toggle(yuPS)&spell(Cleanse Spirit).cooldown=0'},
-	{Survival},
+	{Survival, 'player.health<100'},
 	{Trinkets},
 	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
-	{Cooldowns, 'toggle(cooldowns)'},
-	{AoE, 'toggle(aoe)&player.area(40).enemies>2'},
-	{ST, 'target.range<40&target.infront'},
+	{LRCooldowns, 'talent(7,2)&toggle(cooldowns)'},
+	{IFCooldowns, 'talent(7,3)&toggle(cooldowns)'},
+	{LRAoE, 'talent(7,2)&toggle(aoe)&player.area(40).enemies>2'},
+	{IFAoE, 'talent(7,3)&toggle(aoe)&player.area(40).enemies>2'},
+	{LRST, 'talent(7,2)&target.infront&target.range<=40'},
+	{IFST, 'talent(7,3)&target.infront&target.range<=40'},
 }
 
 local outCombat = {
