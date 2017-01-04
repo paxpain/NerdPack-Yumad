@@ -14,6 +14,10 @@ local GUI = {
 	{type = 'checkbox', text = 'Enable Ancient Healing Potion', key = 'S_AHPE', default = true},
 	{type = 'spinner', text = 'Ancient Healing Potion (Health %)', key = 'S_AHP', default = 20},
 	{type = 'ruler'},{type = 'spacer'},
+	{type = 'checkbox', text = 'Enable Off heals', key = 'H_OHE', default = false},
+	{type = 'spinner', text = 'Healing Surge (Health %)', key = 'H_OH', default = 35},
+	{type = 'ruler'},{type = 'spacer'},
+	
 	
 	-- GUI Keybinds
 	{type = 'header', text = 'Keybinds', align = 'center'},
@@ -162,6 +166,7 @@ local inCombat = {
 	{Keybinds},
 	{Dispel, 'toggle(yuPS)&spell(Cleanse Spirit).cooldown=0'},
 	{Survival, 'player.health<100'},
+	{'Healing Surge', 'UI(H_OHE)&lowest.health<UI(H_OH)', 'lowest'},
 	{Trinkets},
 	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
 	{LRCooldowns, 'talent(7,2)&toggle(cooldowns)'},
@@ -173,8 +178,10 @@ local inCombat = {
 }
 
 local outCombat = {
+        { 'Ghost Wolf' , { 'player.movingfor >= 2' , '!player.buff' }},
 	{Dispel, 'toggle(yuPS)&spell(Cleanse Spirit).cooldown=0'},
 	{Interrupts, 'toggle(interrupts)&target.interruptAt(70)&target.infront&target.range<=30'},
+	{'Healing Surge', 'UI(H_OHE)&lowest.health<70', 'lowest'},
 }
 
 NeP.CR:Add(262, {
